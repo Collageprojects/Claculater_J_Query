@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project-calculator</title>
+
+
+    <script src="jquery.js"></script>
+
+    <!-- <script src="Jquery-UI/jquery-ui.js"></script> -->
+</head>
+<style>
+
+    body {
+        background-color: rgb(238, 234, 240);
+    }
+
+    .calculator {
+        height: 410px;
+        width: 400px;
+        border: 2px solid grey;
+        margin: auto;
+        display: block;
+        border-radius: 5%;
+        background-color: rgb(255, 4, 100);
+        align-items: center;
+        /* margin: 5px 0; */
+        box-shadow: rgb(112, 175, 16);
+    }
+
+    #head {
+        text-align: center;
+        margin: 1px 0px;
+        font: bold;
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .screen {
+        background-color: rgb(185, 182, 176);
+        ;
+        height: 58px;
+        width: auto;
+        border-radius: 22px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: end;
+        margin: 0px 25px;
+        /* padding-top: 10px; */
+    }
+
+    #number {
+        margin: 16.5px;
+        display: inline-block;
+    }
+
+    .cal-row {
+        margin-top: 15px;
+        margin-left: 22.5px;
+        margin-right: 10px;
+    }
+
+    button {
+        height: 40px;
+        width: 52px;
+        margin: 0px 8px;
+        border-radius: 10px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        padding: 3px 3px;
+    }
+
+    .cal-row button {
+        font-size: 15px;
+        font-weight: 600;
+    }
+    #reward{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: auto;
+     background-color: chartreuse;
+     width: fit-content;
+     font-size: 15px;
+     margin-top:15px ;
+    }
+</style>
+
+<body>
+    <h1 style="text-align: center;">project-calculator</h1>
+
+    <div class="calculator">
+        <p id="head"><span></span>jquery calculator</p>
+        <div class="screen">
+            <p id="number">0123456789</p>
+        </div>
+
+
+        <div class="cal-row">
+
+            <button id="clear">C</button>
+            <button>CE</button>
+            <button>Back</button>
+            <button>%</button>
+            <button>ON</button>
+        </div>
+
+        <div class="cal-row">
+
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>/</button>
+            <button>sqrt</button>
+        </div>
+
+        <div class="cal-row">
+
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button id="smbtn" style="font-weight: bolder;">*</button>
+            <button>1/x</button>
+        </div>
+
+        <div class="cal-row">
+
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button id="btn" style="font-size: large; font-weight: bolder;">-</button>
+            <button>pi</button>
+        </div>
+        <div class="cal-row">
+
+            <button>0</button>
+            <button style="font-size: large; font-weight: bolder;">.</button>
+            <button id="plus">+</button>
+            <button id="smb2tn"
+                style="width: 120px; font-size: large; font-weight: bolder; margin-right: 20px;">=</button>
+        </div>
+
+
+    </div>
+  
+
+</body>
+
+<script>
+
+    let num1 = '';
+    let num2 = '';
+    let operator = '';
+    let total = '';
+    var btn = '';
+
+    $("button").click(function () {
+
+
+        btn = $(this).html();
+        var value = btn;
+        if (btn >= 0 || btn <= 9) {
+
+            if (operator === '') {
+                num1 = num1 + value;
+                display(num1);
+            }
+            else {
+                num2 = num2 + value;
+                display(num2);
+            }
+        }
+
+        if (btn === '-' || btn === '+' || btn === '*' || btn === '/') {
+            operator = btn;
+            display(operator);
+        }
+
+        if (btn == '.') {
+            num1 += '.';
+            display(num1)
+
+        }
+        if (btn == '.' && (num2 != '' && operator!='')) {
+            num2 += '.';
+            display(num2);
+        }
+        if (btn === '=') {
+            calculate(btn);
+        }
+
+        if (btn === 'ON') {
+            var on = "Enter the Number";
+            display(on);
+        }
+        if (btn === '%') {
+            num1 = parseFloat(num1);
+            total = num1 / 100;
+            display(total);
+        }
+
+        if (btn === 'pi') {
+            // num1=parseFloat(num1);
+            num1 = Math.PI
+            display(num1);
+        }
+        2
+        if (btn === 'sqrt') {
+            // num1=parseFloat(num1);
+            num1 = Math.sqrt(num1)
+            display(num1);
+        }
+        if (btn === '1/x') {
+            num1 = parseFloat(num1);
+            num1 = 1 / num1;
+            display(num1);
+        }
+
+        if (btn == 'CE') {
+
+            total=0;
+            num1='';
+            num2='';
+            operator='';
+            display('0');
+        }
+
+        if (btn === 'C') {
+        num1=num1.substring(0,num1.length-1);
+        // num1=parseFloat(num1)
+        display(num1);
+        num1=''
+       
+
+        }
+
+         if (btn === 'C' && num2 != '') {
+            num2=num2.substring(0,num2.length-1);
+            display(num2);
+        }
+
+       
+        if(btn==='Back')
+        { 
+          display(num1);
+        }
+    })
+
+
+
+    $("#clear").click(function (num5) {
+
+
+    }) 
+
+
+    function calculate() {
+        num1 = parseFloat(num1);
+        num2 = parseFloat(num2);
+
+        switch (operator) {
+
+            case "+":
+
+                total = num1 + num2
+
+                break;
+            case "*":
+
+                total = num1 * num2
+
+                break;
+
+            case "/":
+
+                total = num1 / num2
+
+                break;
+        }
+        display(total);
+    }
+
+
+    function display(num) {
+        $("#number").text(num);
+    }
+
+
+    
+
+    
+
+    
+    
+
+    
+
+    /*         $("#plus").click(function () {
+                
+                $("#number").text(num1);
+            }) */
+
+
+
+
+</script>
+
+</html>
